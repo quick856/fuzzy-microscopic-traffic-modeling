@@ -4,7 +4,7 @@
 
 项目当前以模糊微分方程（Fuzzy Differential Equations, FDE）理论学习和 Fuzzy-IDM 微观交通流模型仿真为起点，后续逐步扩展到 Fuzzy-FVDM / OVM 等新的模糊微观交通模型，以及多模态感知不确定性与 Multimodal Fuzzy Neural ODE 的框架构思。
 
-这个仓库不仅保存代码，也用于持续记录阶段报告、仿真结果、阅读笔记、每日科研日志和组会汇报材料。希望 Git 提交历史本身能够形成一条清晰的科研工作时间线。
+这个仓库不仅保存代码，也用于持续记录阶段报告、仿真结果、阅读笔记、每日科研日志和组会汇报材料。
 
 ## 当前研究路线
 
@@ -40,20 +40,6 @@
 - Fuzzy Neural ODE 连续动力学
 - 数值求解和端到端训练
 
-## 当前进度
-
-- [x] 完成模糊微分方程基础概念学习
-- [x] 完成简单 FDE 算例与 Euler / RK4 数值求解对比
-- [x] 完成经典 IDM 模型公式与参数含义整理
-- [x] 完成三参数 Fuzzy-IDM 初步建模
-- [x] 完成匀加速、减速停车、周期扰动三类仿真
-- [x] 完成第一次组会阶段汇报 PPT
-- [x] 完成阶段三 Multimodal Fuzzy Neural ODE 构思初稿
-- [ ] 系统阅读 FVDM / OVM 等候选微观交通模型
-- [ ] 实现 Crisp FVDM / OVM 仿真
-- [ ] 设计 Fuzzy-FVDM / Fuzzy-OVM 参数模糊化方案
-- [ ] 整理多模态感知不确定性与 Neural ODE 相关文献
-- [ ] 设计 Multimodal Fuzzy Neural ODE 的简化实验方案
 
 ## 仓库目录说明
 
@@ -85,60 +71,3 @@ fuzzy-microscopic-traffic-modeling/
 ├─ configs/             # 参数配置文件
 └─ data/                # 数据说明与占位文件；大型原始数据不提交
 ```
-
-## 每日工作流
-
-每天开始：
-
-```bash
-git pull
-```
-
-工作完成：
-
-```bash
-git status
-git add .
-git commit -m "YYYY-MM-DD: 今日核心工作"
-git push
-```
-
-提交前先更新当天的 `worklog/YYYY-MM-DD.md`，让代码、文档和日志保持同步。
-
-## Git 提交规范
-
-提交信息建议使用：
-
-```text
-YYYY-MM-DD: 核心工作内容
-```
-
-示例：
-
-```text
-2026-09-15: review microscopic traffic models for fuzzy extension
-2026-09-16: implement crisp FVDM simulation
-2026-09-17: add fuzzy parameters and alpha-cut solver
-2026-09-18: add braking and periodic disturbance experiments
-```
-
-避免使用：
-
-```text
-update
-修改
-final
-final2
-最新版
-test
-```
-
-如果一次工作包含多个独立内容，建议拆成多个 commit。例如文献整理、代码实现、PPT 修改可以分开提交。
-
-## 安全与数据管理
-
-- 不提交密码、token、API key、私钥和 `.env` 文件。
-- 不提交 Python 虚拟环境、临时 Office 文件和系统缓存。
-- 大型原始数据集放在 `data/raw/` 或 `data/datasets/`，默认由 `.gitignore` 忽略。
-- `*.pptx`、`*.docx`、`*.pdf` 建议通过 Git LFS 管理，避免仓库体积过快膨胀。
-
