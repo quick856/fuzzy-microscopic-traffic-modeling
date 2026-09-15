@@ -1,0 +1,44 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE / editor
+.idea/
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.log
+~$*.docx
+~$*.pptx
+~$*.xlsx
+~WRL*.tmp
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Large raw datasets
+data/raw/
+data/datasets/
+
+# Keep data placeholders
+!data/README.md
+!data/.gitkeep
+
