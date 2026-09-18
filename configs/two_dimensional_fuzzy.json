@@ -1,0 +1,76 @@
+{
+  "model_variant": "qi_based_parameter_driven_fuzzy_T_zeta",
+  "status": "first_two_parameter_fuzzy_simulation",
+  "formula_source": "Qi (2025), Eq. (2), (6)-(8), supplemented by Qi and Hu (2023), Eq. (2)-(7) and complete weighted state equation Eq. (11)",
+  "interpretation": "The stochastic OU state and neighbor term are removed for the crisp baseline. Signed directions are simulation conventions. Both bordering lane-mark contributions are summed as stated in Qi and Hu (2023). Explicit eta coefficients replace the former L_ref/t_ref normalization.",
+  "idm": {
+    "a_max_x": {"value": 1.0, "unit": "m/s^2", "source": "assumed_for_simulation", "source_detail": "Representative diagnostic value, not paper calibration."},
+    "a_idm": {"value": 1.0, "unit": "m/s^2", "source": "assumed_for_simulation", "source_detail": "Kept separate from a_max_x despite equal diagnostic values."},
+    "b_idm": {"value": 1.5, "unit": "m/s^2", "source": "assumed_for_simulation", "source_detail": "Representative diagnostic value, not paper calibration."},
+    "desired_speed": {"value": 30.0, "unit": "m/s", "source": "assumed_for_simulation", "source_detail": "Representative diagnostic value, not paper calibration."},
+    "minimum_spacing": {"value": 2.0, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Representative diagnostic value, not paper calibration."},
+    "time_headway": {"value": 1.5, "unit": "s", "source": "assumed_for_simulation", "source_detail": "Center value of the configured triangular fuzzy number T~=(1.2,1.5,1.8) s; not paper calibration."}
+  },
+  "lateral": {
+    "gamma": {"value": 0.56, "unit": "1/m", "source": "paper_case_study", "source_detail": "Qi and Hu (2023), Section 5.1 case-study value."},
+    "zeta": {"value": 1.0, "unit": "1/m", "source": "assumed_for_simulation", "source_detail": "Center value of the configured triangular fuzzy number zeta~=(0.8,1.0,1.2) 1/m; Qi and Hu (2023) case study used beta=3.6."},
+    "epsilon": {"value": 0.1, "unit": "1", "source": "paper_case_study", "source_detail": "Qi and Hu (2023) used alpha=0.1; corresponds by formula shape to epsilon."},
+    "eta_middle": {"value": 1.0, "unit": "m/s", "source": "paper_case_study", "source_detail": "Qi and Hu (2023) used eta_u=1.0; the SI unit is made explicit here to close the acceleration dimension."},
+    "eta_boundary": {"value": 1.0, "unit": "m/s^2", "source": "paper_case_study", "source_detail": "Qi and Hu (2023) used eta_bnd=1.0; the paper did not separately discuss dimensional units."},
+    "eta_mark": {"value": 1.0, "unit": "m/s^2", "source": "paper_case_study", "source_detail": "Qi and Hu (2023) used eta_mk=1.0; the paper did not separately discuss dimensional units."}
+  },
+  "geometry": {
+    "lane_width": {"value": 3.5, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Straight three-lane diagnostic road."},
+    "boundary_left": {"value": -5.3, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Physical road edge located 0.05 m outside the painted edge line; y increases to the right."},
+    "boundary_right": {"value": 5.3, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Physical road edge located 0.05 m outside the painted edge line; y increases to the right."},
+    "markings": {"value": [-5.25, -1.75, 1.75, 5.25], "unit": "m", "source": "assumed_for_simulation", "source_detail": "Two internal lane dividers and two painted road-edge lines; the rightmost target lane is bounded by marks at 1.75 and 5.25 m."},
+    "lane_center": {"value": 3.5, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Target center of the rightmost lane, selected so the road-boundary force can be observed without changing the road geometry."}
+  },
+  "paper_case_study_reference": {
+    "lane_width": {"value": 3.5, "unit": "m", "source": "paper", "source_detail": "Qi and Hu (2023), Section 5.1."},
+    "alpha_boundary": {"value": 0.1, "unit": "1", "source": "paper", "source_detail": "Corresponds by formula shape to epsilon in Qi (2025)."},
+    "beta_lane_mark": {"value": 3.6, "unit": "1/m", "source": "paper", "source_detail": "Corresponds by formula shape to zeta in Qi (2025)."},
+    "gamma_middle": {"value": 0.56, "unit": "1/m", "source": "paper", "source_detail": "Qi and Hu (2023), Section 5.1."},
+    "eta_u": {"value": 1.0, "unit": "paper_not_explicit", "source": "paper", "source_detail": "Case-study coefficient; strict SI unit not discussed."},
+    "eta_boundary": {"value": 1.0, "unit": "paper_not_explicit", "source": "paper", "source_detail": "Case-study coefficient; strict SI unit not discussed."},
+    "eta_mark": {"value": 1.0, "unit": "paper_not_explicit", "source": "paper", "source_detail": "Case-study coefficient; strict SI unit not discussed."}
+  },
+  "scenario": {
+    "initial_x": {"value": 0.0, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Follower origin."},
+    "initial_vx": {"value": 15.0, "unit": "m/s", "source": "assumed_for_simulation", "source_detail": "Follower and leader initial speed."},
+    "offsets": {"value": [0.0, -1.0, 1.0], "unit": "m", "source": "assumed_for_simulation", "source_detail": "The fuzzy run uses +1.0 m relative to the rightmost-lane center, giving y(0)=4.5 m and a 0.80 m distance to the right physical road boundary. Initial states remain crisp, not fuzzy."},
+    "initial_vy": {"value": 0.0, "unit": "m/s", "source": "assumed_for_simulation", "source_detail": "Identical initial lateral speed."},
+    "recovery_duration": {"value": 30.0, "unit": "s", "source": "assumed_for_simulation", "source_detail": "Constant-speed leader."},
+    "following_duration": {"value": 40.0, "unit": "s", "source": "assumed_for_simulation", "source_detail": "Normal following only runs after the declared recovery gate passes."},
+    "acceleration_start": {"value": 10.0, "unit": "s", "source": "assumed_for_simulation", "source_detail": "Prescribed leader."},
+    "acceleration_end": {"value": 20.0, "unit": "s", "source": "assumed_for_simulation", "source_detail": "Prescribed leader."},
+    "leader_acceleration": {"value": 0.2, "unit": "m/s^2", "source": "assumed_for_simulation", "source_detail": "Prescribed leader reaches 17 m/s."}
+  },
+  "numerics": {
+    "method": {"value": "RK4", "unit": "1", "source": "assumed_for_simulation", "source_detail": "Classical RK4 applied to the smooth two-mark sum baseline."},
+    "dt": {"value": 0.05, "unit": "s", "source": "assumed_for_simulation", "source_detail": "Our numerical choice, not paper step size."},
+    "dt_comparison": {"value": [0.1, 0.05, 0.025], "unit": "s", "source": "assumed_for_simulation", "source_detail": "Compare entire trajectories at shared times."}
+  },
+  "diagnostic_gate": {
+    "tail_window": {"value": 5.0, "unit": "s", "source": "assumed_for_simulation", "source_detail": "Predeclared tail assessment window."},
+    "tail_position_tolerance": {"value": 0.01, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Diagnostic recovery tolerance, not safety or calibrated driving criterion."},
+    "tail_speed_tolerance": {"value": 0.01, "unit": "m/s", "source": "assumed_for_simulation", "source_detail": "Diagnostic tolerance, not measured driver performance."},
+    "mirror_tolerance": {"value": 1e-10, "unit": "numeric", "source": "assumed_for_simulation", "source_detail": "Componentwise numerical symmetry tolerance."},
+    "step_position_tolerance": {"value": 0.01, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Max whole-time difference for dt=.05 versus .025."},
+    "step_speed_tolerance": {"value": 0.01, "unit": "m/s", "source": "assumed_for_simulation", "source_detail": "Max whole-time difference for dt=.05 versus .025."},
+    "absolute_ay_limit": {"value": 5.0, "unit": "m/s^2", "source": "assumed_for_simulation", "source_detail": "Numerical explosion screen only; not a road safety or comfort threshold."},
+    "final_center_tolerance": {"value": 0.001, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Numerical recovery gate for every sampled fuzzy trajectory at the final time; not a calibrated driving criterion."},
+    "final_lateral_speed_tolerance": {"value": 0.001, "unit": "m/s", "source": "assumed_for_simulation", "source_detail": "Numerical recovery gate for every sampled fuzzy trajectory at the final time; not a calibrated driving criterion."}
+  },
+  "fuzzy_next_stage": {
+    "selected_parameters": ["time_headway", "zeta"],
+    "triangles": {
+      "time_headway": {"left": 1.2, "mode": 1.5, "right": 1.8, "unit": "s", "source": "assumed_for_simulation", "source_detail": "Representative ±20% support for the first numerical fuzzy experiment; not paper calibration."},
+      "zeta": {"left": 0.8, "mode": 1.0, "right": 1.2, "unit": "1/m", "source": "assumed_for_simulation", "source_detail": "Representative support chosen after deterministic sensitivity diagnosis; not paper calibration."}
+    },
+    "alpha_levels": [0.0, 0.25, 0.5, 0.75, 1.0],
+    "grid_n": 5,
+    "grid_convergence": [3, 5, 7],
+    "status": "configured_for_first_parameter_driven_fuzzy_experiment"
+  }
+}

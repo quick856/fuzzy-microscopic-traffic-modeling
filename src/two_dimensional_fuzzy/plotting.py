@@ -270,3 +270,179 @@ def plot_following(
             finally:
                 plt.close(fig)
     return paths
+
+
+def plot_fuzzy_results(
+    crisp_run: dict[str, Any],
+    envelopes: dict[float, dict[str, NDArray[np.float64]]],
+    alpha0_samples: list[dict[str, Any]],
+    output_dir: Path,
+    config: dict[str, Any],
+) -> list[str]:
+    """绘制 T̃、ζ̃ 参数网格产生的二维模糊包络和样本轨迹。"""
+    crisp = _read_run(crisp_run)
+    if 0.0 not in envelopes or 0.5 not in envelopes:
+        raise ValueError("绘图需要 alpha=0 和 alpha=0.5 包络")
+    zero, half = envelopes[0.0], envelopes[0.5]
+    time = crisp["time"]
+    target = Path(output_dir)
+    target.mkdir(parents=True, exist_ok=True)
+    paths: list[str] = []
+
+    def band_plot(
+        filename: str, title: str, ylabel: str, center: np.ndarray,
+        lower0: np.ndarray, upper0: np.ndarray,
+        lower05: np.ndarray, upper05: np.ndarray,
+        reference: tuple[np.ndarray, str] | None = None,
+    ) -> None:
+        fig, ax = plt.subplots(figsize=(10, 5.4))
+        try:
+            ax.fill_between(time, lower0, upper0, color="#8BB7D9", alpha=0.28, label="α=0 模糊带")
+            ax.fill_between(time, lower05, upper05, color="#377EAE", alpha=0.36, label="α=0.5 模糊带")
+            ax.plot(time, center, color="#174F78", linewidth=1.8, label="中心参数轨迹")
+            if reference is not None:
+                ax.plot(time, reference[0], color="#C06442", linestyle="--", label=reference[1])
+            ax.set_ylabel(ylabel)
+            _time_axis(ax, time)
+            _figure_legend(fig, ax, ncol=4)
+            _decorate(fig, title, config)
+            paths.append(_save(fig, target, filename))
+        finally:
+            plt.close(fig)
+
+    with plt.rc_context(_STYLE):
+        band_plot(
+            "07_fuzzy_longitudinal_speed.png", "模糊纵向速度包络", "速度（km/h）",
+            crisp["state"][:, 1] * 3.6,
+            zero["state_lower"][:, 1] * 3.6, zero["state_upper"][:, 1] * 3.6,
+            half["state_lower"][:, 1] * 3.6, half["state_upper"][:, 1] * 3.6,
+            (crisp["leader"][:, 1] * 3.6, "前车"),
+        )
+
+        band_plot(
+            "08_fuzzy_lateral_position.png", "模糊横向位置包络", "横向位置 y（m）",
+            crisp["state"][:, 2],
+            zero["state_lower"][:, 2], zero["state_upper"][:, 2],
+            half["state_lower"][:, 2], half["state_upper"][:, 2],
+            (np.full_like(time, float(_value(config, "geometry", "lane_center"))), "目标车道中心线"),
+        )
+
+        left = float(_value(config, "geometry", "boundary_left"))
+        right = float(_value(config, "geometry", "boundary_right"))
+        center = float(_value(config, "geometry", "lane_center"))
+        marks = np.asarray(_value(config, "geometry", "markings"), dtype=float)
+        fig, ax = plt.subplots(figsize=(10, 5.4))
+        try:
+            ax.axhspan(left, right, color="#F3F5F7", zorder=0)
+            for index, boundary in enumerate((left, right)):
+                ax.axhline(boundary, color="#414B56", linewidth=1.2, label="道路边界" if index == 0 else None)
+            for index, mark in enumerate(marks):
+                ax.axhline(mark, color="#B4943C", linestyle="--", linewidth=1, label="车道标线" if index == 0 else None)
+            ax.axhline(center, color="#5D998A", linestyle=":", linewidth=1, label="目标车道中心线")
+            for index, sample in enumerate(alpha0_samples):
+                state = np.asarray(sample["state"], dtype=float)
+                ax.plot(state[:, 0], state[:, 2], color="#629BC1", alpha=0.22, linewidth=0.9,
+                        label="α=0 参数样本轨迹" if index == 0 else None)
+            ax.plot(crisp["state"][:, 0], crisp["state"][:, 2], color="#174F78", linewidth=2,
+                    label="中心参数轨迹")
+            ax.plot(crisp["leader"][:, 0], crisp["leader"][:, 2], color="#C06442", linestyle="--",
+                    label="前车")
+            ax.set_xlabel("纵向位置 x（m）")
+            ax.set_ylabel("横向位置 y（m，向右为正）")
+            ax.set_ylim(left - 0.35, right + 0.35)
+            _figure_legend(fig, ax, ncol=4)
+            _decorate(fig, "α=0 参数空间产生的二维轨迹族", config)
+            paths.append(_save(fig, target, "09_fuzzy_xy_trajectories.png"))
+        finally:
+            plt.close(fig)
+
+        fig, axes = plt.subplots(2, 1, figsize=(10, 7.3), sharex=True)
+        try:
+            width_vx = zero["state_upper"][:, 1] - zero["state_lower"][:, 1]
+            width_y = zero["state_upper"][:, 2] - zero["state_lower"][:, 2]
+            axes[0].plot(time, width_vx, color="#174F78")
+            axes[1].plot(time, width_y, color="#C06442")
+            axes[0].set_ylabel("纵向速度宽度 Wᵤ（m/s）")
+            axes[1].set_ylabel("横向位置宽度 Wᵧ（m）")
+            _time_axis(axes[1], time)
+            _decorate(fig, "α=0 模糊不确定性宽度", config)
+            paths.append(_save(fig, target, "10_fuzzy_width.png"))
+        finally:
+            plt.close(fig)
+
+        band_plot(
+            "12_fuzzy_longitudinal_acceleration.png", "模糊纵向加速度包络", "纵向加速度 aₓ（m/s²）",
+            crisp["acceleration"][:, 0],
+            zero["acceleration_lower"][:, 0], zero["acceleration_upper"][:, 0],
+            half["acceleration_lower"][:, 0], half["acceleration_upper"][:, 0],
+        )
+        band_plot(
+            "13_fuzzy_lateral_acceleration.png", "模糊横向加速度包络", "横向加速度 aᵧ（m/s²）",
+            crisp["acceleration"][:, 1],
+            zero["acceleration_lower"][:, 1], zero["acceleration_upper"][:, 1],
+            half["acceleration_lower"][:, 1], half["acceleration_upper"][:, 1],
+        )
+
+        fig, ax = plt.subplots(figsize=(10, 5.4))
+        try:
+            components = crisp["lateral_components"]
+            ax.plot(time, components[:, 0], color="#647480", linestyle="--", label="道路边界作用")
+            ax.plot(time, components[:, 1], color="#C06442", label="左右车道标线合力")
+            ax.plot(time, components[:, 2], color="#2C8C7B", linestyle="-.", label="车道中心线作用")
+            ax.plot(time, np.sum(components, axis=1), color="#174F78", linewidth=1.8,
+                    label="横向总加速度")
+            ax.axhline(0, color="#87909A", linewidth=0.7, zorder=0)
+            ax.set_ylabel("对横向加速度的贡献（m/s²）")
+            _time_axis(ax, time)
+            _figure_legend(fig, ax, ncol=4)
+            _decorate(fig, "中心参数轨迹的横向作用分解", config)
+            paths.append(_save(fig, target, "14_fuzzy_lateral_force_components.png"))
+        finally:
+            plt.close(fig)
+
+        fig, axes = plt.subplots(2, 2, figsize=(11.5, 8.2), sharex=True)
+        try:
+            component_specs = (
+                (0, "道路边界作用", "#647480"),
+                (1, "左右车道标线合力", "#C06442"),
+                (2, "车道中心线作用", "#2C8C7B"),
+                (None, "横向总加速度", "#174F78"),
+            )
+            for flat_index, (column, subtitle, color) in enumerate(component_specs):
+                ax = axes.flat[flat_index]
+                if column is None:
+                    center_values = np.sum(crisp["lateral_components"], axis=1)
+                    lower0 = zero["acceleration_lower"][:, 1]
+                    upper0 = zero["acceleration_upper"][:, 1]
+                    lower05 = half["acceleration_lower"][:, 1]
+                    upper05 = half["acceleration_upper"][:, 1]
+                else:
+                    center_values = crisp["lateral_components"][:, column]
+                    lower0 = zero["lateral_components_lower"][:, column]
+                    upper0 = zero["lateral_components_upper"][:, column]
+                    lower05 = half["lateral_components_lower"][:, column]
+                    upper05 = half["lateral_components_upper"][:, column]
+                ax.fill_between(
+                    time, lower0, upper0, color="#8BB7D9", alpha=0.28,
+                    label="α=0 模糊包络" if flat_index == 0 else None,
+                )
+                ax.fill_between(
+                    time, lower05, upper05, color="#377EAE", alpha=0.36,
+                    label="α=0.5 模糊包络" if flat_index == 0 else None,
+                )
+                ax.plot(
+                    time, center_values, color=color, linewidth=1.7,
+                    label="中心参数曲线" if flat_index == 0 else None,
+                )
+                ax.axhline(0, color="#87909A", linewidth=0.7, zorder=0)
+                ax.set_title(subtitle)
+                ax.set_ylabel("加速度贡献（m/s²）")
+                ax.set_xlim(float(time[0]), float(time[-1]))
+                if flat_index >= 2:
+                    ax.set_xlabel("时间 t（s）")
+            _figure_legend(fig, axes.flat[0], ncol=3)
+            _decorate(fig, "横向作用分项的模糊包络", config)
+            paths.append(_save(fig, target, "15_fuzzy_lateral_force_component_envelopes.png"))
+        finally:
+            plt.close(fig)
+    return paths
