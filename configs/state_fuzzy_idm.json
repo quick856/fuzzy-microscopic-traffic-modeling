@@ -1,0 +1,44 @@
+{
+  "idm": {
+    "desired_speed": {"value": 30.0, "unit": "m/s", "source": "assumed_for_demo"},
+    "max_acceleration": {"value": 1.0, "unit": "m/s^2", "source": "center_of_parameter_fuzzy_demo"},
+    "comfortable_deceleration": {"value": 1.5, "unit": "m/s^2", "source": "center_of_parameter_fuzzy_demo"},
+    "desired_time_headway": {"value": 1.5, "unit": "s", "source": "center_of_parameter_fuzzy_demo"},
+    "minimum_gap": {"value": 2.0, "unit": "m", "source": "assumed_for_demo"},
+    "acceleration_exponent": {"value": 4.0, "unit": "1", "source": "standard_IDM_choice"},
+    "vehicle_length": {"value": 5.0, "unit": "m", "source": "assumed_for_demo"}
+  },
+  "state_fuzziness": {
+    "initial_gap_half_width": {"value": 1.0, "unit": "m", "source": "assumed_for_demo"},
+    "initial_speed_half_width": {"value": 0.5, "unit": "m/s", "source": "assumed_for_demo"},
+    "shared_correlated_initial_state": true
+  },
+  "numerics": {
+    "alpha_levels": [0.0, 0.25, 0.5, 0.75, 1.0],
+    "grid_n": 7,
+    "dt": {"value": 0.05, "unit": "s", "source": "numerical_choice"},
+    "solver": "RK4",
+    "follower_count": 5,
+    "nesting_absolute_tolerance": 1e-5
+  },
+  "scenarios": {
+    "accelerating": {
+      "initial_speed": {"value": 15.0, "unit": "m/s"},
+      "target_speed": {"value": 20.0, "unit": "m/s"},
+      "acceleration": {"value": 0.5, "unit": "m/s^2"}
+    },
+    "braking": {
+      "initial_speed": {"value": 20.0, "unit": "m/s"},
+      "braking_start": {"value": 10.0, "unit": "s"},
+      "deceleration": {"value": 1.5, "unit": "m/s^2"}
+    },
+    "periodic": {
+      "mean_speed": {"value": 20.0, "unit": "m/s"},
+      "amplitude": {"value": 2.0, "unit": "m/s"},
+      "omega": {"value": 0.2, "unit": "rad/s"},
+      "warmup": {"value": 60.0, "unit": "s"},
+      "transient_cycles": 2,
+      "analysis_cycles": 5
+    }
+  }
+}
