@@ -1,0 +1,131 @@
+{
+  "model_variant": "state_geometry_fuzzy_with_common_ou_path_and_neighbor",
+  "interpretation": "Six initial states and perceived target-lane geometry are triangular fuzzy numbers. IDM and lateral-response parameters remain crisp. Every alpha-cut sample uses the same Wiener increments so the numerical envelope isolates fuzzy state/geometry propagation conditional on one reproducible stochastic realization.",
+  "alpha_levels": [0.0, 0.25, 0.5, 0.75, 1.0],
+  "samples_per_alpha": 128,
+  "convergence_sample_counts": [64, 128],
+  "state_order": ["x", "u", "z_lon", "y", "v", "z_lat"],
+  "triangles": {
+    "x": {
+      "left": -0.5,
+      "mode": 0.0,
+      "right": 0.5,
+      "unit": "m",
+      "source": "assumed_for_simulation"
+    },
+    "u": {
+      "left": 14.5,
+      "mode": 15.0,
+      "right": 15.5,
+      "unit": "m/s",
+      "source": "assumed_for_simulation"
+    },
+    "z_lon": {
+      "left": -0.02,
+      "mode": 0.0,
+      "right": 0.02,
+      "unit": "m/s^2",
+      "source": "assumed_for_simulation"
+    },
+    "y": {
+      "left": 4.4,
+      "mode": 4.5,
+      "right": 4.6,
+      "unit": "m",
+      "source": "assumed_for_simulation"
+    },
+    "v": {
+      "left": -0.05,
+      "mode": 0.0,
+      "right": 0.05,
+      "unit": "m/s",
+      "source": "assumed_for_simulation"
+    },
+    "z_lat": {
+      "left": -0.01,
+      "mode": 0.0,
+      "right": 0.01,
+      "unit": "m/s^2",
+      "source": "assumed_for_simulation"
+    },
+    "lane_mark_left": {
+      "left": 1.70,
+      "mode": 1.75,
+      "right": 1.80,
+      "unit": "m",
+      "source": "assumed_for_simulation"
+    },
+    "lane_mark_right": {
+      "left": 5.22,
+      "mode": 5.25,
+      "right": 5.28,
+      "unit": "m",
+      "source": "assumed_for_simulation"
+    },
+    "lane_center": {
+      "left": 3.45,
+      "mode": 3.50,
+      "right": 3.55,
+      "unit": "m",
+      "source": "assumed_for_simulation"
+    }
+  },
+  "uniformly_accelerating_leader": {
+    "initial_speed": {
+      "value": 15.0,
+      "unit": "m/s",
+      "source": "assumed_for_simulation"
+    },
+    "acceleration": {
+      "value": 0.2,
+      "unit": "m/s^2",
+      "source": "assumed_for_simulation"
+    },
+    "acceleration_start": {
+      "value": 10.0,
+      "unit": "s",
+      "source": "assumed_for_simulation"
+    },
+    "acceleration_end": {
+      "value": 20.0,
+      "unit": "s",
+      "source": "assumed_for_simulation"
+    },
+    "lateral_position": {
+      "value": 3.5,
+      "unit": "m",
+      "source": "assumed_for_simulation"
+    }
+  },
+  "deterministic_neighbor": {
+    "longitudinal_acceleration": {
+      "value": 0.2,
+      "unit": "m/s^2",
+      "source": "assumed_for_simulation",
+      "source_detail": "The lateral approach remains unchanged. The neighbor accelerates during the same 10-20 s interval as the leader, from 14.5 to 16.5 m/s, preventing Delta x -> 0 during the 30 s experiment."
+    }
+  },
+  "numerics": {
+    "duration": {
+      "value": 30.0,
+      "unit": "s",
+      "source": "assumed_for_simulation"
+    },
+    "dt": {
+      "value": 0.05,
+      "unit": "s",
+      "source": "assumed_for_simulation"
+    },
+    "random_seed": {
+      "value": 20260922,
+      "unit": "1",
+      "source": "assumed_for_simulation",
+      "source_detail": "Retains the validated common Wiener path used by the preceding fuzzy-parameter/neighbor experiment."
+    },
+    "sampler": {
+      "value": "deterministic_halton_with_center_axis_and_diagonal_anchors",
+      "unit": "1",
+      "source": "our_numerical_choice"
+    }
+  }
+}

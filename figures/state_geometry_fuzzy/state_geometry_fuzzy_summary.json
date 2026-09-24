@@ -1,0 +1,99 @@
+{
+  "model_scope": "six fuzzy initial states + fuzzy perceived lane marks/center + common OU path + neighbor interaction",
+  "fuzzy_inputs": [
+    "x",
+    "u",
+    "z_lon",
+    "y",
+    "v",
+    "z_lat",
+    "lane_mark_left",
+    "lane_mark_right",
+    "lane_center"
+  ],
+  "crisp_parameters": {
+    "T_s": 1.5,
+    "zeta_per_m": 1.0
+  },
+  "stochastic_interpretation": "conditional fuzzy envelope under common Wiener increments",
+  "alpha_levels": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "halton_samples_per_alpha": 128,
+  "nested_family_counts": {
+    "0.0": 593,
+    "0.25": 445,
+    "0.5": 297,
+    "0.75": 149,
+    "1.0": 1
+  },
+  "unique_simulations": 593,
+  "alpha_one_max_six_state_error": 0.0,
+  "nesting": {
+    "pass": true,
+    "maximum_violation": 0.0,
+    "details": {
+      "state_six": 0.0,
+      "state": 0.0,
+      "acceleration": 0.0,
+      "lateral_components": 0.0,
+      "neighbor_force": 0.0,
+      "headway": 0.0,
+      "delta_y": 0.0
+    }
+  },
+  "sampling_convergence_against_128": {
+    "64": {
+      "u_lower_mps": 0.020328486858719685,
+      "u_upper_mps": 0.018012281337485447,
+      "y_lower_m": 0.008713726207826955,
+      "y_upper_m": 0.014136422406979765,
+      "delta_y_ml_lower_m": 0.014285908971236605,
+      "delta_y_ml_upper_m": 0.01513167435851237
+    }
+  },
+  "all_finite": true,
+  "minimum_speed_mps": 14.5,
+  "minimum_headway_m": 24.326038389726207,
+  "minimum_physical_road_margin_m": 0.6968541807504938,
+  "uniform_leader_speed_max_error_mps": 0.0,
+  "center_neighbor_active_start_s": 15.3,
+  "center_neighbor_active_end_s": 18.75,
+  "alpha0_initial_six_state_widths": [
+    1.0,
+    1.0,
+    0.04,
+    0.1999999999999993,
+    0.1,
+    0.02
+  ],
+  "alpha0_max_six_state_widths": [
+    2.1242850971587615,
+    1.0,
+    0.04,
+    0.22929300726513802,
+    0.16376630830434102,
+    0.02
+  ],
+  "figure_files": [
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\01_fuzzy_x.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\02_fuzzy_u.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\03_fuzzy_z_lon.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\04_fuzzy_y.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\05_fuzzy_v.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\06_fuzzy_z_lat.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\07_fuzzy_ax.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\08_fuzzy_ay.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\09_fuzzy_headway.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\10_fuzzy_xy_envelope.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\11_delta_y_middle.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\12_delta_y_markings.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\13_lateral_force_components.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\14_neighbor_force_envelopes.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\state_geometry_fuzzy\\15_state_widths.png"
+  ]
+}
