@@ -1,0 +1,91 @@
+{
+  "simulation_scope": "hybrid fuzzy-stochastic six-state model with OU noise and neighbor interaction; all fuzzy samples use common Wiener increments",
+  "random_seed": 20260922,
+  "vehicle_names": {
+    "vehicle_i": "被求解的目标跟驰车辆",
+    "leader_le_i": "车辆 i 的确定性前车",
+    "neighbor_j": "相邻车道的确定性车辆"
+  },
+  "fuzzy_parameters": {
+    "time_headway": 1.5,
+    "zeta": 1.0
+  },
+  "alpha_levels": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "grid_n": 5,
+  "sample_counts": {
+    "0.0": 81,
+    "0.25": 65,
+    "0.5": 41,
+    "0.75": 25,
+    "1.0": 1
+  },
+  "unique_parameter_runs_with_common_noise": 153,
+  "alpha_one_max_state_error": 0.0,
+  "nesting": {
+    "pass": true,
+    "maximum_violation": 0.0,
+    "details": {
+      "state": 0.0,
+      "acceleration": 0.0,
+      "neighbor_force": 0.0
+    }
+  },
+  "grid_convergence_against_n9": {
+    "5": {
+      "speed_lower_mps": 0.028720085040829346,
+      "speed_upper_mps": 0.04273805776653106,
+      "lateral_lower_m": 0.006147566623548872,
+      "lateral_upper_m": 0.0016260127346412467,
+      "neighbor_lon_lower_mps2": 0.05065345274904265,
+      "neighbor_lon_upper_mps2": 0.0,
+      "neighbor_lat_lower_mps2": 0.0,
+      "neighbor_lat_upper_mps2": 0.03430238122224896
+    },
+    "7": {
+      "speed_lower_mps": 0.012792953176239408,
+      "speed_upper_mps": 0.03289073882794291,
+      "lateral_lower_m": 0.0026914572324931996,
+      "lateral_upper_m": 0.0006546316458853063,
+      "neighbor_lon_lower_mps2": 0.022940832403194555,
+      "neighbor_lon_upper_mps2": 0.0,
+      "neighbor_lat_lower_mps2": 0.0,
+      "neighbor_lat_upper_mps2": 0.011838716532272892
+    }
+  },
+  "force_envelope_status": "not_converged_in_sup_norm_up_to_grid_n_9",
+  "force_envelope_n7_vs_n9_max_error_mps2": 0.022940832403194555,
+  "all_finite": true,
+  "minimum_speed_mps": 14.581653580577363,
+  "minimum_headway_m": 21.387126912014935,
+  "minimum_road_margin_m": 0.7999999999999998,
+  "center_active_start_s": 15.200000000000001,
+  "center_active_end_s": 18.75,
+  "center_max_abs_neighbor_lon_mps2": 0.3042145422238904,
+  "center_max_abs_neighbor_lat_mps2": 0.0685896673339639,
+  "center_max_abs_lateral_displacement_m": 1.0,
+  "alpha0_max_speed_width_mps": 0.8749234187076009,
+  "alpha0_time_of_max_speed_width_s": 3.5500000000000003,
+  "alpha0_max_lateral_width_m": 0.34240887710722,
+  "alpha0_time_of_max_lateral_width_s": 3.1,
+  "figure_files": [
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\01_neighbor_influence_validation.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\02_fuzzy_longitudinal_position.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\03_fuzzy_longitudinal_speed.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\04_fuzzy_longitudinal_acceleration.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\05_fuzzy_headway.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\06_fuzzy_lateral_position.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\07_fuzzy_lateral_velocity.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\08_fuzzy_lateral_acceleration.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\09_fuzzy_xy_trajectory.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\10_neighbor_longitudinal_force.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\11_neighbor_lateral_force.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\12_longitudinal_noise_state.png",
+    "D:\\Desktop\\fuzzy-microscopic-traffic-modeling\\figures\\neighbor_fuzzy_ou_simulation\\13_lateral_noise_state.png"
+  ]
+}

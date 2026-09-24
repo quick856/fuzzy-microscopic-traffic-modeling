@@ -24,7 +24,16 @@
     "boundary_left": {"value": -5.25, "unit": "m", "source": "assumed_for_simulation", "source_detail": "y increases to the right."},
     "boundary_right": {"value": 5.25, "unit": "m", "source": "assumed_for_simulation", "source_detail": "y increases to the right."},
     "markings": {"value": [-1.75, 1.75], "unit": "m", "source": "assumed_for_simulation", "source_detail": "Internal marks bordering the middle target lane."},
+    "target_lane_markings": {"value": [-1.75, 1.75], "unit": "m", "source": "assumed_for_simulation", "source_detail": "Only these two marks contribute to the target-lane F_mk sum."},
     "lane_center": {"value": 0.0, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Target middle-lane center."}
+  },
+  "ou_noise": {
+    "theta_lon": {"value": 1.0, "unit": "1/s", "source": "assumed_for_simulation", "source_detail": "Provisional verification value; Qi (2025) gives the OU form but no normal-driving calibration used here."},
+    "mu_lon": {"value": 0.0, "unit": "m/s^2", "source": "assumed_for_simulation", "source_detail": "Zero-mean normal-driving acceleration disturbance."},
+    "sigma_lon": {"value": 0.1, "unit": "m/s^(5/2)", "source": "assumed_for_simulation", "source_detail": "Provisional nonzero value for implementation verification, not a paper-calibrated value."},
+    "theta_lat": {"value": 1.0, "unit": "1/s", "source": "assumed_for_simulation", "source_detail": "Provisional verification value; not a paper-calibrated value."},
+    "mu_lat": {"value": 0.0, "unit": "m/s^2", "source": "assumed_for_simulation", "source_detail": "Zero-mean normal-driving lateral acceleration disturbance."},
+    "sigma_lat": {"value": 0.05, "unit": "m/s^(5/2)", "source": "assumed_for_simulation", "source_detail": "Provisional nonzero value for implementation verification, not a paper-calibrated value."}
   },
   "paper_case_study_reference": {
     "lane_width": {"value": 3.5, "unit": "m", "source": "paper", "source_detail": "Qi and Hu (2023), Section 5.1."},
@@ -49,6 +58,8 @@
   "numerics": {
     "method": {"value": "RK4", "unit": "1", "source": "assumed_for_simulation", "source_detail": "Classical RK4 applied to the smooth two-mark sum baseline."},
     "dt": {"value": 0.05, "unit": "s", "source": "assumed_for_simulation", "source_detail": "Our numerical choice, not paper step size."},
+    "sde_method": {"value": "Euler-Maruyama", "unit": "1", "source": "paper", "source_detail": "Required after restoring the OU stochastic states."},
+    "random_seed": {"value": 20260922, "unit": "1", "source": "assumed_for_simulation", "source_detail": "Fixed implementation seed for exact reruns; not a physical parameter."},
     "dt_comparison": {"value": [0.1, 0.05, 0.025], "unit": "s", "source": "assumed_for_simulation", "source_detail": "Compare entire trajectories at shared times."}
   },
   "diagnostic_gate": {

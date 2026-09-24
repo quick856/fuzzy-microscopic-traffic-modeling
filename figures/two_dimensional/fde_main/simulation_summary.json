@@ -1,0 +1,46 @@
+{
+  "primary_model": "two-dimensional fuzzy differential-equation model",
+  "fuzzy_parameters": [
+    "T",
+    "zeta"
+  ],
+  "ou_role": "auxiliary stochastic component validation only",
+  "fuzzy_summary": {
+    "maxima": {
+      "W_x": {
+        "value": 10.766036845178178,
+        "time_s": 40.0,
+        "unit": "m"
+      },
+      "W_u": {
+        "value": 0.8708025288621428,
+        "time_s": 3.5500000000000003,
+        "unit": "m/s"
+      },
+      "W_y": {
+        "value": 0.3317742085920199,
+        "time_s": 3.1,
+        "unit": "m"
+      },
+      "W_v": {
+        "value": 0.17304953642588405,
+        "time_s": 1.3,
+        "unit": "m/s"
+      }
+    },
+    "nesting": {
+      "pass": true,
+      "maximum_lower_violation": 0.0,
+      "maximum_upper_violation": 0.0,
+      "tolerance": 1e-10
+    }
+  },
+  "ou_summary": {
+    "paths": 180,
+    "all_finite": true,
+    "z_lon_final_sample_mean": -0.007927821584270151,
+    "z_lon_theoretical_mean": 0.0,
+    "z_lat_final_sample_mean": -0.0035510094526464576,
+    "z_lat_theoretical_mean": 0.0
+  }
+}

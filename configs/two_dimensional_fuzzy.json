@@ -24,7 +24,16 @@
     "boundary_left": {"value": -5.3, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Physical road edge located 0.05 m outside the painted edge line; y increases to the right."},
     "boundary_right": {"value": 5.3, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Physical road edge located 0.05 m outside the painted edge line; y increases to the right."},
     "markings": {"value": [-5.25, -1.75, 1.75, 5.25], "unit": "m", "source": "assumed_for_simulation", "source_detail": "Two internal lane dividers and two painted road-edge lines; the rightmost target lane is bounded by marks at 1.75 and 5.25 m."},
+    "target_lane_markings": {"value": [1.75, 5.25], "unit": "m", "source": "assumed_for_simulation", "source_detail": "Only the two marks bordering the rightmost target lane contribute to F_mk."},
     "lane_center": {"value": 3.5, "unit": "m", "source": "assumed_for_simulation", "source_detail": "Target center of the rightmost lane, selected so the road-boundary force can be observed without changing the road geometry."}
+  },
+  "ou_noise": {
+    "theta_lon": {"value": 1.0, "unit": "1/s", "source": "assumed_for_simulation", "source_detail": "Stored for the later stochastic extension; current fuzzy ODE runs do not use it."},
+    "mu_lon": {"value": 0.0, "unit": "m/s^2", "source": "assumed_for_simulation", "source_detail": "Stored for the later stochastic extension; current fuzzy ODE runs do not use it."},
+    "sigma_lon": {"value": 0.1, "unit": "m/s^(5/2)", "source": "assumed_for_simulation", "source_detail": "Provisional value, not paper calibration; current fuzzy ODE runs do not use it."},
+    "theta_lat": {"value": 1.0, "unit": "1/s", "source": "assumed_for_simulation", "source_detail": "Stored for the later stochastic extension; current fuzzy ODE runs do not use it."},
+    "mu_lat": {"value": 0.0, "unit": "m/s^2", "source": "assumed_for_simulation", "source_detail": "Stored for the later stochastic extension; current fuzzy ODE runs do not use it."},
+    "sigma_lat": {"value": 0.05, "unit": "m/s^(5/2)", "source": "assumed_for_simulation", "source_detail": "Provisional value, not paper calibration; current fuzzy ODE runs do not use it."}
   },
   "paper_case_study_reference": {
     "lane_width": {"value": 3.5, "unit": "m", "source": "paper", "source_detail": "Qi and Hu (2023), Section 5.1."},

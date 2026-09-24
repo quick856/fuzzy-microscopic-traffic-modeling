@@ -102,6 +102,26 @@ class LateralParameters:
 
 
 @dataclass(frozen=True)
+class NeighborParameters:
+    """Qi (2025) Eq. (9)-(11) 与 Appendix A 的邻车参数。
+
+    max_deceleration 对应论文 a_MAX^x，用于计算纵向椭圆半轴
+    x_ellip=u_i^2/(2*a_MAX^x)。论文未给出本研究场景的标定值，
+    因而必须由配置文件显式给出并记录来源。
+    """
+
+    enabled: bool
+    max_deceleration: float
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.enabled, bool):
+            raise ValueError("enabled 必须为布尔值")
+        _finite("max_deceleration", self.max_deceleration)
+        if self.max_deceleration <= 0:
+            raise ValueError("max_deceleration 必须大于零")
+
+
+@dataclass(frozen=True)
 class OUParameters:
     """论文 Eq. (12) 的纵、横向 Ornstein-Uhlenbeck 噪声参数。
 
