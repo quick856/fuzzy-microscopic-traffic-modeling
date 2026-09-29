@@ -1,0 +1,39 @@
+{
+  "experiment_name": "state_fuzzy_only_with_common_ou_neighbor_and_lyapunov",
+  "interpretation": "Only the six initial vehicle states are fuzzy. All IDM, lateral-force, neighbor, OU and road-geometry parameters are crisp. All alpha-cut samples share the same Wiener increments.",
+  "base_repository": "D:/Desktop/fuzzy-microscopic-traffic-modeling",
+  "alpha_levels": [0.0, 0.25, 0.5, 0.75, 1.0],
+  "samples_per_alpha": 128,
+  "convergence_sample_counts": [64, 128],
+  "state_order": ["x", "u", "z_lon", "y", "v", "z_lat"],
+  "triangles": {
+    "x": {"left": -0.5, "mode": 0.0, "right": 0.5, "unit": "m", "source": "assumed_for_simulation"},
+    "u": {"left": 14.5, "mode": 15.0, "right": 15.5, "unit": "m/s", "source": "assumed_for_simulation"},
+    "z_lon": {"left": -0.02, "mode": 0.0, "right": 0.02, "unit": "m/s^2", "source": "assumed_for_simulation"},
+    "y": {"left": 4.4, "mode": 4.5, "right": 4.6, "unit": "m", "source": "assumed_for_simulation"},
+    "v": {"left": -0.05, "mode": 0.0, "right": 0.05, "unit": "m/s", "source": "assumed_for_simulation"},
+    "z_lat": {"left": -0.01, "mode": 0.0, "right": 0.01, "unit": "m/s^2", "source": "assumed_for_simulation"}
+  },
+  "uniformly_accelerating_leader": {
+    "initial_speed": {"value": 15.0, "unit": "m/s", "source": "existing_simulation"},
+    "acceleration": {"value": 0.2, "unit": "m/s^2", "source": "existing_simulation"},
+    "acceleration_start": {"value": 10.0, "unit": "s", "source": "existing_simulation"},
+    "acceleration_end": {"value": 20.0, "unit": "s", "source": "existing_simulation"},
+    "lateral_position": {"value": 3.5, "unit": "m", "source": "existing_simulation"}
+  },
+  "deterministic_neighbor": {
+    "longitudinal_acceleration": {"value": 0.2, "unit": "m/s^2", "source": "existing_simulation"}
+  },
+  "numerics": {
+    "duration": {"value": 30.0, "unit": "s", "source": "existing_simulation"},
+    "dt": {"value": 0.05, "unit": "s", "source": "existing_simulation"},
+    "random_seed": {"value": 20260922, "unit": "1", "source": "existing_simulation"},
+    "sampler": {"value": "deterministic_halton_with_center_axis_and_diagonal_anchors", "unit": "1", "source": "our_numerical_choice"}
+  },
+  "lyapunov": {
+    "analysis_start": {"value": 22.0, "unit": "s", "source": "our_numerical_choice", "reason": "Leader acceleration has ended and the prescribed neighboring vehicle has returned to its lane."},
+    "finite_difference_step": {"value": 1e-6, "unit": "scaled_state", "source": "our_numerical_choice"},
+    "q_matrix": {"value": "identity_6", "unit": "1", "source": "our_numerical_choice"},
+    "score_type": "custom_numerical_diagnostic_not_a_standard_literature_score"
+  }
+}
