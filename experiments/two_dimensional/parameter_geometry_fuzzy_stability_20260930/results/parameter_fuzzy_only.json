@@ -1,0 +1,98 @@
+{
+  "experiment": "parameter",
+  "strict_scope": "only a_idm, b_idm, T, epsilon, zeta and gamma are fuzzy",
+  "triangular_fuzzy_inputs": {
+    "a_idm": {
+      "left": 0.8,
+      "mode": 1.0,
+      "right": 1.2,
+      "unit": "m/s²",
+      "source": "assumed_for_simulation"
+    },
+    "b_idm": {
+      "left": 1.2,
+      "mode": 1.5,
+      "right": 1.8,
+      "unit": "m/s²",
+      "source": "assumed_for_simulation"
+    },
+    "T": {
+      "left": 1.2,
+      "mode": 1.5,
+      "right": 1.8,
+      "unit": "s",
+      "source": "assumed_for_simulation"
+    },
+    "epsilon": {
+      "left": 0.08,
+      "mode": 0.1,
+      "right": 0.12,
+      "unit": "1",
+      "source": "assumed_for_simulation"
+    },
+    "zeta": {
+      "left": 0.8,
+      "mode": 1.0,
+      "right": 1.2,
+      "unit": "1/m",
+      "source": "assumed_for_simulation"
+    },
+    "gamma": {
+      "left": 0.448,
+      "mode": 0.56,
+      "right": 0.672,
+      "unit": "1/m",
+      "source": "assumed_for_simulation"
+    }
+  },
+  "crisp_initial_state": {
+    "order": [
+      "x",
+      "u",
+      "z_lon",
+      "y",
+      "v",
+      "z_lat"
+    ],
+    "value": [
+      0.0,
+      15.0,
+      0.0,
+      4.5,
+      0.0,
+      0.0
+    ]
+  },
+  "common_crisp_inputs": {
+    "leader": "15 to 17 m/s, a=0.2 m/s^2 during 10-20 s",
+    "neighbor": "existing prescribed adjacent-lane trajectory; 14.5 to 16.5 m/s during 10-20 s",
+    "ou": "theta_lon=theta_lat=1; sigma_lon=0.1; sigma_lat=0.05; common seed",
+    "neighbor_force": "Qi (2025) Appendix A Eq. (29)-(32)"
+  },
+  "numerics": {
+    "dt_s": 0.05,
+    "duration_s": 30.0,
+    "seed": 20260922,
+    "alpha_levels": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "halton_count_per_alpha": 64
+  },
+  "stability": {
+    "method": "memberwise local linearization and continuous Lyapunov equation",
+    "Q": "I_6",
+    "probe_error": [
+      0.2,
+      0.08,
+      0.01,
+      0.05,
+      0.02,
+      0.005
+    ],
+    "warning": "custom score is a reproducible diagnostic, not a standard literature score"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "experiment": "geometry",
+  "strict_scope": "only target left/right lane-mark and lane-center positions are fuzzy",
+  "triangular_fuzzy_inputs": {
+    "left_mark": {
+      "left": 1.7,
+      "mode": 1.75,
+      "right": 1.8,
+      "unit": "m",
+      "source": "assumed_for_simulation"
+    },
+    "right_mark": {
+      "left": 5.22,
+      "mode": 5.25,
+      "right": 5.28,
+      "unit": "m",
+      "source": "assumed_for_simulation"
+    },
+    "lane_center": {
+      "left": 3.45,
+      "mode": 3.5,
+      "right": 3.55,
+      "unit": "m",
+      "source": "assumed_for_simulation"
+    }
+  },
+  "crisp_initial_state": {
+    "order": [
+      "x",
+      "u",
+      "z_lon",
+      "y",
+      "v",
+      "z_lat"
+    ],
+    "value": [
+      0.0,
+      15.0,
+      0.0,
+      4.5,
+      0.0,
+      0.0
+    ]
+  },
+  "common_crisp_inputs": {
+    "leader": "15 to 17 m/s, a=0.2 m/s^2 during 10-20 s",
+    "neighbor": "existing prescribed adjacent-lane trajectory; 14.5 to 16.5 m/s during 10-20 s",
+    "ou": "theta_lon=theta_lat=1; sigma_lon=0.1; sigma_lat=0.05; common seed",
+    "neighbor_force": "Qi (2025) Appendix A Eq. (29)-(32)"
+  },
+  "numerics": {
+    "dt_s": 0.05,
+    "duration_s": 30.0,
+    "seed": 20260922,
+    "alpha_levels": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "halton_count_per_alpha": 64
+  },
+  "stability": {
+    "method": "memberwise local linearization and continuous Lyapunov equation",
+    "Q": "I_6",
+    "probe_error": [
+      0.2,
+      0.08,
+      0.01,
+      0.05,
+      0.02,
+      0.005
+    ],
+    "warning": "custom score is a reproducible diagnostic, not a standard literature score"
+  }
+}

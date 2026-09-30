@@ -1,0 +1,102 @@
+{
+  "experiment": "geometry",
+  "title": "环境几何模糊化",
+  "strict_scope": "only target left/right lane-mark and lane-center positions are fuzzy",
+  "fuzzy_inputs": [
+    "left_mark",
+    "right_mark",
+    "lane_center"
+  ],
+  "fuzzy_input_source": "assumed_for_simulation",
+  "crisp_initial_state": [
+    0.0,
+    15.0,
+    0.0,
+    4.5,
+    0.0,
+    0.0
+  ],
+  "common_seed": 20260922,
+  "alpha_levels": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "nested_family_counts": {
+    "0.0": 289,
+    "0.25": 217,
+    "0.5": 145,
+    "0.75": 73,
+    "1.0": 1
+  },
+  "unique_simulations": 289,
+  "alpha_one_max_state_error": 0.0,
+  "nesting": {
+    "pass": true,
+    "maximum_violation": 0.0
+  },
+  "all_finite": true,
+  "minimum_speed_mps": 14.954550506185587,
+  "minimum_headway_m": 25.25106712812274,
+  "minimum_road_margin_m": 0.7999999999999998,
+  "alpha0_max_state_widths": [
+    0.4844080264774675,
+    0.18451894859058626,
+    0.0,
+    0.0896098609379723,
+    0.042215320482899,
+    0.0
+  ],
+  "stability": {
+    "all_hurwitz": true,
+    "worst_spectral_abscissa": -0.14309043186509174,
+    "all_p_positive": true,
+    "minimum_p_eigenvalue": 0.37016612644358776,
+    "maximum_lyapunov_residual": 4.8935948188418684e-15,
+    "all_probe_nonincreasing": true,
+    "worst_probe_final_ratio": 0.0008125586937651396,
+    "common_center_P_certificate": true,
+    "worst_lambda_max_of_ATP_plus_PA_using_center_P": -0.8472301686723382,
+    "minimum_common_decay_eigenvalue": 0.8472301686723382,
+    "maximum_individual_mean_square_ultimate_radius": 0.38998115067602074,
+    "common_generator_constant": 0.15160871213794158,
+    "common_mean_square_ultimate_radius": 0.4230204601260646,
+    "maximum_equilibrium_residual": 1.5959455978986625e-16,
+    "equilibrium_headway_range": [
+      29.037797402701322,
+      29.037797402701322
+    ],
+    "lateral_equilibrium_range": [
+      3.46,
+      3.54
+    ]
+  },
+  "stability_score": {
+    "score_out_of_100": 99.42989169668732,
+    "parts": {
+      "all_members_hurwitz_30": 30.0,
+      "all_P_positive_and_residual_small_20": 20.0,
+      "common_P_and_all_local_probes_nonincreasing_20": 20.0,
+      "worst_probe_contraction_20": 19.429891696687328,
+      "fuzzy_and_physical_validation_10": 10.0
+    },
+    "interpretation": "Custom reproducible diagnostic; not a literature-standard stability or safety score."
+  },
+  "config_file": "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry_fuzzy_only.json",
+  "figure_files": [
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\01_state_x.png",
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\02_state_u.png",
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\03_state_z_lon.png",
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\04_state_y.png",
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\05_state_v.png",
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\06_state_z_lat.png",
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\07_acceleration_x.png",
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\08_acceleration_y.png",
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\09_headway.png",
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\10_xy_envelope.png",
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\11_envelope_widths.png",
+    "D:\\Desktop\\parameter_geometry_fuzzy_stability_20260930\\results\\geometry\\12_lyapunov_probe.png"
+  ]
+}
